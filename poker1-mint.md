@@ -1,3 +1,22 @@
+// with and without comments
+
+```
+:I 1000 y! 1000 z! 0 r! `Welcome to Poker!` /N ;
+:N r 1+ r! `====================` /N `ROUND ` r . /N `Your chips: ` y . ` Computer chips: ` z . /N 0 p! 0 f! 0 g! D ;
+:D `Dealing cards...` /N 5(D1) 5(D2) H ;
+:D1 52 #F & q! q 13 / s! q 13 % 1+ q! q h /i?! ;
+:D2 52 #F & q! q 13 / s! q 13 % 1+ q! q c /i?! ;
+:H `Your hand:` /N 5( /i 1+ . `. ` h /i? s! s 13 > ( s 14 = (`Ace`) /E( s 11 = (`Jack`) /E( s 12 = (`Queen`) /E( s 13 = (`King`) /E( s .))))) /E( s . ) ` of ` h /i? 13 / t! t 0 = (`Hearts`) /E( t 1 = (`Diamonds`) /E( t 2 = (`Clubs`) /E( t 3 = (`Spades`)))) /N ) E ;
+:P `Pot: ` p . /N `Your turn. ` /N `(B)et, (C)heck, (F)old? ` /K t! t 66 = ( `How much? ` /K 48 - q! q 0 > ( q y < ( q y! p q + p! `You bet ` q . /N ) /E ( `Not enough chips.` /N ) ) /E ( `Checking...` /N ) ) /E ( t 67 = ( `Checking...` /N ) /E ( t 70 = ( `You fold.` /N 1 f! z p + z! ) /E ( `Invalid choice.` /N P ))) ;
+:C g 1 = ( `Computer already folded.` /N ) /E ( `Computer thinking...` /N 100() E2 q! q 1 = ( 5 #7 & 0 = ( `Computer folds.` /N 1 g! ) /E ( 10 #F & t! z t < ( z t! ) z t - z! p t + p! `Computer bets ` t . /N ) ) /E ( q 2 = ( 20 #F & t! z t < ( z t! ) z t - z! p t + p! `Computer bets ` t . /N ) /E ( 50 #F & 10 + t! z t < ( z t! ) z t - z! p t + p! `Computer bets ` t . /N ))) ;
+:E 0 q! 5( h /i? t! /i 1+ 5 < ( /i 1+ /j! 5(/j( h /j? t = ( q 1 < (1 q!) /E ( q 1 = (2 q!) ) ) /j 1+ /j! )))) q ;
+:E2 0 q! 5( c /i? t! /i 1+ 5 < ( /i 1+ /j! 5(/j( c /j? t = ( q 1 < (1 q!) /E ( q 1 = (2 q!) ) ) /j 1+ /j! )))) q ;
+:W f 1 = ( `You folded. Computer wins pot.` /N z p + z! ) /E ( g 1 = ( `Computer folded. You win pot.` /N y p + y! ) /E ( `SHOWDOWN` /N E q! `Your hand: ` q 0 = (`High Card`) /E( q 1 = (`One Pair`) /E( q 2 = (`Two Pair`))) /N q t! E2 q! `Computer hand: ` q 0 = (`High Card`) /E( q 1 = (`One Pair`) /E( q 2 = (`Two Pair`))) /N t q > ( `You win pot!` /N y p + y! ) /E ( t q < ( `Computer wins pot!` /N z p + z! ) /E ( `Tie! Pot split.` /N p 2 / t! y t + y! z t + z! )))) ;
+:G I /U( N P f 0 = ( C ) W y 0 < ( `You're out of chips. Game over!` /N /F /W ) z 0 < ( `Computer is out of chips. You win!` /N /F /W ) `Play another round? (Y/N) ` /K t! t 89 = ( /T /W ) /E ( `Thanks for playing!` /N /F /W )) ;
+G
+```
+
+
 
 
 ```
