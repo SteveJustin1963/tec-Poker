@@ -1,50 +1,25 @@
-:A 1000 y! 1000 z! 0 r! [0 0 0 0 0] h! [0 0 0 0 0] c! ;
-:B r 1+ r! `Round:` r . /N `You:` y . `PC:` z . /N 0 p! 0 f! 0 d! 10(0 s d ?!) C ;
-:C 5(D) 5(E) F ;
-:D d 1+ d! d s! 1 s d ?! 53 r + /i * #F & 52 % 1+ q! d 10 < (q s d ?! ) ;
-:E d 1+ d! d s! 1 s d ?! 77 r * /i + #F & 52 % 1+ q! d 10 < (q s d ?! ) ;
-:F `Hand:` 5(/i 1+ . `. ` h /i ? q! q 1 = (`A`) q 11 = (`J`) q 12 = (`Q`) q 13 = (`K`) q 1 > q 10 < (q .) q! /N) G ;
-:G `Bet/Check/Fold? ` /K q! q 66 = H q 67 = J q 70 = I ;
-:H 100 y > (100 y!) y 100 - y! p 100 + p! `Bet 100` /N L ;
-:I 1 f! `Fold` /N z p + z! P ;
-:J `Check` /N L ;
-:K h 0 ? m! h 1 ? m > (h 1 ? m!) h 2 ? m > (h 2 ? m!) h 3 ? m > (h 3 ? m!) h 4 ? m > (h 4 ? m!) m ;
-:L c 0 ? n! c 1 ? n > (c 1 ? n!) c 2 ? n > (c 2 ? n!) c 3 ? n > (c 3 ? n!) c 4 ? n > (c 4 ? n!) f 1 = (O) m n > M n m > N m n = O ;
-:M `You win ` p . /N y p + y! P ;
-:N `PC wins ` p . /N z p + z! P ;
-:O `Tie` /N p 2 / t! y t + y! z t + z! P ;
-:P y 0 <= (Q) z 0 <= (R) `Again? Y/N ` /K q! q 89 = (B) S ;
-:Q `You lose` /N S ;
-:R `You win!` /N S ;
-:S ;
-:T A [0 0 0 0 0 0 0 0 0 0] s! B ;
-T
-
-
-
-
-
-:A 1000 y! 1000 z! 0 r! [0 0 0 0 0] h! [0 0 0 0 0] c! ; // Initialize game with chips and arrays
-:B r 1+ r! `Round:` r . /N `You:` y . `PC:` z . /N 0 p! 0 f! 0 d! 10(0 s d ?!) C ; // Start new round, reset deck
-:C 5(D) 5(E) F ; // Deal 5 cards to each player, then show hands
-:D d 1+ d! d s! 1 s d ?! 53 r + /i * #F & 52 % 1+ q! d 10 < (q s d ?! ) ; // Deal a card to player, mark as used
-:E d 1+ d! d s! 1 s d ?! 77 r * /i + #F & 52 % 1+ q! d 10 < (q s d ?! ) ; // Deal a card to computer, mark as used
-:F `Hand:` 5(/i 1+ . `. ` h /i ? q! q 1 = (`A`) q 11 = (`J`) q 12 = (`Q`) q 13 = (`K`) q 1 > q 10 < (q .) q! /N) G ; // Display player hand with card values
-:G `Bet/Check/Fold? ` /K q! q 66 = H q 67 = J q 70 = I ; // Get player action (B/C/F)
-:H 100 y > (100 y!) y 100 - y! p 100 + p! `Bet 100` /N L ; // Handle bet action, limit to available chips
-:I 1 f! `Fold` /N z p + z! P ; // Handle fold action, computer gets pot
-:J `Check` /N L ; // Handle check action, proceed to comparison
-:K h 0 ? m! h 1 ? m > (h 1 ? m!) h 2 ? m > (h 2 ? m!) h 3 ? m > (h 3 ? m!) h 4 ? m > (h 4 ? m!) m ; // Find highest card in player hand
-:L c 0 ? n! c 1 ? n > (c 1 ? n!) c 2 ? n > (c 2 ? n!) c 3 ? n > (c 3 ? n!) c 4 ? n > (c 4 ? n!) f 1 = (O) m n > M n m > N m n = O ; // Find highest card in computer hand, compare
-:M `You win ` p . /N y p + y! P ; // Player wins, add pot to player chips
-:N `PC wins ` p . /N z p + z! P ; // Computer wins, add pot to computer chips
-:O `Tie` /N p 2 / t! y t + y! z t + z! P ; // Handle tie, split pot
-:P y 0 <= (Q) z 0 <= (R) `Again? Y/N ` /K q! q 89 = (B) S ; // Check for game over, ask to play again
-:Q `You lose` /N S ; // Game over - player out of chips
-:R `You win!` /N S ; // Game over - computer out of chips
-:S ; // Empty function to end game
-:T A [0 0 0 0 0 0 0 0 0 0] s! B ; // Main function - initialize game and start first round
-T // Run the game
-
-
-
+:A 1000 y! 1000 z! 0 r! 0 h1! 0 h2! 0 h3! 0 h4! 0 h5! 0 c1! 0 c2! 0 c3! 0 c4! 0 c5! ; // Initialize game
+:B r 1+ r! `Round:` r . /N `You:` y . `PC:` z . /N 0 p! 0 f! 0 d! C ; // Start new round
+:C D D D D D E E E E E F ; // Deal 5 cards to each player
+:D d 1+ d! 53 r + d * #F & 13 % 1+ q! d 1 = (q h1!) d 2 = (q h2!) d 3 = (q h3!) d 4 = (q h4!) d 5 = (q h5!) ; // Deal card to player
+:E d 1+ d! 77 r * d + #F & 13 % 1+ q! d 6 = (q c1!) d 7 = (q c2!) d 8 = (q c3!) d 9 = (q c4!) d 10 = (q c5!) ; // Deal card to computer
+:F `Hand:` /N `1.` h1 ? q! q 1 = (`A`) q 11 = (`J`) q 12 = (`Q`) q 13 = (`K`) q 1 > q 10 < (q .) q! /N ; // Display card 1
+:G `2.` h2 ? q! q 1 = (`A`) q 11 = (`J`) q 12 = (`Q`) q 13 = (`K`) q 1 > q 10 < (q .) q! /N H ; // Display card 2
+:H `3.` h3 ? q! q 1 = (`A`) q 11 = (`J`) q 12 = (`Q`) q 13 = (`K`) q 1 > q 10 < (q .) q! /N I ; // Display card 3
+:I `4.` h4 ? q! q 1 = (`A`) q 11 = (`J`) q 12 = (`Q`) q 13 = (`K`) q 1 > q 10 < (q .) q! /N J ; // Display card 4
+:J `5.` h5 ? q! q 1 = (`A`) q 11 = (`J`) q 12 = (`Q`) q 13 = (`K`) q 1 > q 10 < (q .) q! /N K ; // Display card 5
+:K `Bet/Check/Fold? ` /K q! q 66 = L q 67 = N q 70 = M ; // Get player action (B/C/F)
+:L 100 y > (100 y!) y 100 - y! p 100 + p! `Bet 100` /N O ; // Handle bet action
+:M 1 f! `Fold` /N z p + z! S ; // Handle fold action
+:N `Check` /N O ; // Handle check action
+:O h1 h2 > (h1 u!) h2 h1 > (h2 u!) h3 u > (h3 u!) h4 u > (h4 u!) h5 u > (h5 u!) P ; // Find player's highest card
+:P c1 c2 > (c1 v!) c2 c1 > (c2 v!) c3 v > (c3 v!) c4 v > (c4 v!) c5 v > (c5 v!) f 1 = (S) u v > Q v u > R u v = T ; // Find PC's highest card
+:Q `You win ` p . /N y p + y! S ; // Player wins
+:R `PC wins ` p . /N z p + z! S ; // Computer wins
+:T `Tie` /N p 2 / t! y t + y! z t + z! S ; // Handle tie
+:S y 0 <= (U) z 0 <= (V) `Again? Y/N ` /K q! q 89 = (B) W ; // Check game over
+:U `You lose` /N W ; // Game over - player loses
+:V `You win!` /N W ; // Game over - player wins
+:W ; // Empty function to end game
+:X A B ; // Main function
+X // Run the game
