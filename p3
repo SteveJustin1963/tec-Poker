@@ -16,7 +16,7 @@
 :S 12345 s ! ;
 :C s 7 * 3 + s ! s 32555 > ( 1 s ! ) /E ( ) s s 13 / 13 * - 1 + ;
 :D 5 ( C h /i ?! C c /i ?! ) ;
-:T 1000 y ! 1000 z ! 200 p ! `CPU:[X X X X X]Bank:$` z . /N /N `POT:$` p . /N /N `YOU:[` 5 ( h /i ? 48 + /C 32 /C ) `]Bank:$` y . /N ;
+:T [ 0 0 0 0 0 ] h ! [ 0 0 0 0 0 ] c ! 1000 y ! 1000 z ! 200 p ! `CPU:    [ X X X X X ]    Bank:$` z . /N /N `          POT:$` p . /N /N `YOU:    [ ` h 0 ? 48 + /C 32 /C h 1 ? 48 + /C 32 /C h 2 ? 48 + /C 32 /C h 3 ? 48 + /C 32 /C h 4 ? 48 + /C ` ]    Bank:$` y . /N ;
 :V `CPU:[`5(c/i?48+/C32/C)`]`/N`YOU:[`5(h/i?48+/C32/C)`]`/N ;
 
 
