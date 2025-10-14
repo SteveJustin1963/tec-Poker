@@ -10,9 +10,7 @@ newest at top
 :T 1000 y ! 1000 z ! 200 p ! `CPU:    [ X X X X X ]    Bank:$` z . /N /N `          POT:$` p . /N /N `YOU:    [ ` h 0 ? P h 1 ? P h 2 ? P h 3 ? P h 4 ? P ` ]    Bank:$` y . /N ;
 :V `CPU:[` 5 ( c /i ? P ) ` ]` /N `YOU:[` 5 ( h /i ? P ) ` ]` /N ;
 
-
 //////////////////////////
-
 
 :S 12345 s ! ;                      // seed once
 // random card generator
@@ -34,25 +32,15 @@ newest at top
 > G    // Game 2: YOU: [ 8 3 K 7 4 ] (different!)
 > G    // Game 3: YOU: [ J 9 5 2 Q ] (different!)
 
-
-
 /////////////////////////////
 :S 12345 s ! ;
-
 :C s 7 * 3 + s ! s 32555 > ( 1 s ! ) s 13 / ' /r 1 + ;
-
 :I [ 0 0 0 0 0 ] h ! [ 0 0 0 0 0 ] c ! ;
-
 :D 5 ( C h /i ?! C c /i ?! ) ;
-
 :P " 10 < ( 48 + /C 32 /C ) /E ( " 10 = ( ' 84 /C 32 /C ) /E ( " 11 = ( ' 74 /C 32 /C ) /E ( " 12 = ( ' 81 /C 32 /C ) /E ( ' 75 /C 32 /C )))) ;
-
 :T 1000 y ! 1000 z ! 200 p ! `CPU:    [ X X X X X ]    Bank:$` z . /N /N `          POT:$` p . /N /N `YOU:    [ ` h 0 ? P h 1 ? P h 2 ? P h 3 ? P h 4 ? P ` ]    Bank:$` y . /N ;
-
 :V `CPU:[` 5 ( c /i ? P ) ` ]` /N `YOU:[` 5 ( h /i ? P ) ` ]` /N ;
-
 :G S I D T ;
-
 
 //////////////////////////
 
