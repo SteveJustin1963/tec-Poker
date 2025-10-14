@@ -5,10 +5,8 @@
 
 :S 12345 s ! ;                      // seed once
 
-:C                                   // random card generator
-s 75 * 74 + 32749 / /r s !          // (s*75+74) mod 32749
-s 13 / ' /r 1 +                     // map to 1–13
-;
+// random card generator
+:C s 75 * 74 + 32749 / /r s !  s 13 / ' /r 1 + ;
 
 
 
