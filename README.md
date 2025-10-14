@@ -1,4 +1,4 @@
-# p1 ...bad
+# p1 ...ugly
 
 ```
 :A 1000 y! 1000 z! [0 0 0 0 0] h! [0 0 0 0 0] c! ;
@@ -82,7 +82,7 @@ X // Run the game
 
 
 
-# p3 getting better
+# p3 good
 
 ```
 :S 12345 s ! ;
