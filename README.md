@@ -144,6 +144,144 @@ X // Run the game
 :V `CPU:[` 5 ( c /i ? P ) ` ]` /N `YOU:[` 5 ( h /i ? P ) ` ]` /N ;
 ```
 
+Perfect — that’s a very clear and solid design choice. 🎯
+
+So we’ll assume:
+
+> You have an infinite virtual deck with card values 1–13, each representing a **rank only** (Ace → King), and you can draw as many times as you want with duplicates allowed.
+
+That means:
+
+* No suits.
+* Duplicates are allowed (two Kings in the same hand are fine).
+* Random draws are independent.
+* All logic operates only on rank values 1–13.
+
+---
+
+### ✅ What this simplifies
+
+| Feature           | Result                                                       |
+| ----------------- | ------------------------------------------------------------ |
+| **Dealing logic** | Just call `C` repeatedly; no need to track used cards.       |
+| **Memory use**    | Two 5-element arrays (`h` and `c`).                          |
+| **Display logic** | `:P` already converts 1–13 → “1,2,…,10,T,J,Q,K”.             |
+| **Randomness**    | Your fixed RNG now handles it fine.                          |
+| **Future logic**  | You can implement hand ranking easily using 1–13 arithmetic. |
+
+---
+
+### 🎮 The core game state now
+
+```mint
+:S 12345 s ! ;                               // Seed RNG
+:C s 75 * 74 + 32749 / /r s ! s 13 / ' /r 1 + ; // Random 1–13
+:I [0 0 0 0 0] h ! [0 0 0 0 0] c ! ;         // Init hands
+:D 5 ( C h /i ?!  C c /i ?! ) ;              // Deal hands
+:T 1000 y ! 1000 z ! 200 p !                  // Setup & print table
+   `CPU:    [ X X X X X ]    Bank:$` z . /N/N
+   `          POT:$` p . /N/N
+   `YOU:    [ ` h 0 ? P h 1 ? P h 2 ? P h 3 ? P h 4 ? P `] Bank:$` y . /N ;
+:V `CPU:[` 5 ( c /i ? P ) `]` /N `YOU:[` 5 ( h /i ? P ) `]` /N ;
+:G I D T ;                                   // Game start
+```
+
+Then just run:
+
+```
+G
+```
+
+and you’ll get a new hand each time.
+Each card value (1–13) is drawn independently — “infinite supply” model.
+
+---
+
+### 🔹 Next logical step
+
+Now that dealing works perfectly, the next interesting feature would be **hand evaluation** — e.g. detect pairs, three-of-a-kind, or straights.
+
+Would you like me to add a small **MINT function to evaluate a 5-card hand (1–13)** so it prints something like
+`"PAIR"` / `"THREE KIND"` / `"STRAIGHT"` / `"HIGH CARD"`?
+
+Good thinking — yes, and that’s *exactly* the next logical step if you want the CPU’s hand to be displayed (and later evaluated) the same way as the player’s.
+
+---
+
+### 🔹 Right now
+
+Your display line for **YOU** is:
+
+```mint
+`YOU:    [ ` h 0 ? P h 1 ? P h 2 ? P h 3 ? P h 4 ? P `] Bank:$` y . /N
+```
+
+That means:
+
+* Fetch each element of the **player hand array `h`**
+* Pass it through `:P` to print as a card rank symbol (1–13 → 1,T,J,Q,K)
+* Then print the player’s bank `$y`
+
+---
+
+### 🔹 For the CPU
+
+You can make a mirror version that does the same thing for `c` (the CPU hand array):
+
+```mint
+`CPU:    [ ` c 0 ? P c 1 ? P c 2 ? P c 3 ? P c 4 ? P `] Bank:$` z . /N
+```
+
+Now both hands will display properly.
+
+---
+
+### 🔹 Example combined display section
+
+So, update your `:T` function to this:
+
+```mint
+:T
+1000 y ! 1000 z ! 200 p !
+`CPU:    [ ` c 0 ? P c 1 ? P c 2 ? P c 3 ? P c 4 ? P `] Bank:$` z . /N/N
+`          POT:$` p . /N/N
+`YOU:    [ ` h 0 ? P h 1 ? P h 2 ? P h 3 ? P h 4 ? P `] Bank:$` y . /N
+;
+```
+
+That gives both CPU and player cards visibly — no more `[X X X X X]`.
+
+---
+
+### 🔹 Or, if you still want to hide CPU cards initially
+
+Keep the current line with `[ X X X X X ]` in `:T`, and then make the **`:V` function** show the real cards:
+
+```mint
+:V
+`CPU:[` 5 ( c /i ? P ) `]` /N
+`YOU:[` 5 ( h /i ? P ) `]` /N
+;
+```
+
+That way:
+
+* `T` = table view (CPU cards hidden)
+* `V` = reveal both hands after play
+
+---
+
+✅ **Summary:**
+
+| Mode        | Description                                  | Code          |
+| ----------- | -------------------------------------------- | ------------- |
+| Show both   | Copy the `h` printing pattern to `c`         | use in `:T`   |
+| Hide/reveal | Keep `X X X X X` in `:T`, show cards in `:V` | current style |
+
+---
+
+Would you like me to show a version that automatically calls `:V` *after* a keypress — so it mimics the “reveal” moment after you hit Enter?
+
 Excellent — you’ve now reached a really solid milestone. 🃏
 At this point your MINT poker engine has:
 
@@ -265,5 +403,4 @@ because once you can *score a hand*, everything else (betting, AI, pot handling)
 ---
 
 Would you like me to sketch a **MINT-compatible hand-ranking function** that counts ranks (pairs, triples, etc.) so you can plug it straight into your existing system?
-
 
