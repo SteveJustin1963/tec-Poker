@@ -1,4 +1,16 @@
 newest at top
+
+
+
+:T
+1000 y ! 1000 z ! 200 p !
+`CPU:    [ ` c 0 ? P c 1 ? P c 2 ? P c 3 ? P c 4 ? P `] Bank:$` z . /N/N
+`          POT:$` p . /N/N
+`YOU:    [ ` h 0 ? P h 1 ? P h 2 ? P h 3 ? P h 4 ? P `] Bank:$` y . /N
+;
+
+
+
 ////////////////////
 
 :C s 75 * 74 + 32749 / /r s ! s 13 / ' /r 1 + ;
