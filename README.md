@@ -144,5 +144,126 @@ X // Run the game
 :V `CPU:[` 5 ( c /i ? P ) ` ]` /N `YOU:[` 5 ( h /i ? P ) ` ]` /N ;
 ```
 
+Excellent — you’ve now reached a really solid milestone. 🃏
+At this point your MINT poker engine has:
+
+✅ Random generator (`:C`)
+✅ Deck model (1–13 infinite ranks)
+✅ Array-based hands for YOU + CPU (`h`, `c`)
+✅ Dealing (`:D`)
+✅ Display + reveal (`:T`, `:V`)
+✅ Persistent banks and pot
+
+That means you’ve got the “dealing loop” working exactly like a minimal casino draw-poker engine.
+Now you can evolve the game in two major layers:
+
+---
+
+## 🎯 **1️⃣ Hand Evaluation**
+
+Give meaning to the five cards each player has.
+
+Start simple:
+
+| Hand Type           | Rule                   |
+| ------------------- | ---------------------- |
+| **Pair**            | Any two equal ranks    |
+| **Two Pair**        | Two distinct pairs     |
+| **Three-of-a-Kind** | Three equal ranks      |
+| **Straight**        | Five consecutive ranks |
+| **Four-of-a-Kind**  | Four equal ranks       |
+| **High Card**       | Anything else          |
+
+So you’d write a function like:
+
+```mint
+:H h /S ( h /i ? ... ) ;    // scan your array and count matches
+```
+
+You can store counts in a `[13]` frequency array, then test patterns.
+
+👉 This lets you compare YOU vs CPU and decide who wins the pot.
+
+---
+
+## 💰 **2️⃣ Betting & Bank Logic**
+
+Now that the table and pot are defined:
+
+* Subtract bets from `y` (you) and `z` (CPU).
+* Add them into `p` (pot).
+* After evaluation, award the pot to the winner.
+
+Example structure:
+
+```mint
+:B 50 y - y! 50 z - z! 100 p + p! ;
+:W y p + y! 0 p ! ;     // give pot to player
+:L z p + z! 0 p ! ;     // give pot to cpu
+```
+
+Then `:G` could become:
+
+```
+:G I D T B H ... V ;
+```
+
+---
+
+## 🤖 **3️⃣ Basic CPU “AI”**
+
+Later, after evaluation works:
+
+* You can have CPU decide to **fold**, **call**, or **raise** based on random chance or hand strength.
+
+Example:
+
+```mint
+:CJ C 5 < (`CPU folds`) /E (`CPU calls`) ;
+```
+
+---
+
+## 🧠 **4️⃣ Gameplay Loop**
+
+Make `:G` a full round:
+
+```
+:G
+I D T          // init + deal + show table
+B              // both players bet
+H              // evaluate hands
+V              // reveal cards
+W or L         // distribute pot
+;
+```
+
+Then you can loop:
+
+```
+/U(G)
+```
+
+for infinite rounds until someone’s bank = 0.
+
+---
+
+## ✨ **5️⃣ Optional Enhancements**
+
+* Keep statistics of wins/losses.
+* Animate “dealing” by printing one card at a time.
+* Add keypress pauses between stages (`/K` waits for Enter).
+* Add text like: `You win!`, `CPU wins!`, `Draw!`.
+
+---
+
+### ✅ Recommended next immediate step
+
+Start with **Hand Evaluation** (`:H`) —
+because once you can *score a hand*, everything else (betting, AI, pot handling) makes sense.
+
+---
+
+Would you like me to sketch a **MINT-compatible hand-ranking function** that counts ranks (pairs, triples, etc.) so you can plug it straight into your existing system?
 
 
