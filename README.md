@@ -1,3 +1,7 @@
+<img width="555" height="555" alt="image" src="https://github.com/user-attachments/assets/db1b8a01-a219-420a-9123-61a5ff4fef41" />
+
+
+
 # p1 ...ugly
 
 ```
