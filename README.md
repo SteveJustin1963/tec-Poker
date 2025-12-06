@@ -1,4 +1,4 @@
-
+also see https://github.com/SteveJustin1963/tec-Poker/wiki  (muti-pages)
 
  
 
