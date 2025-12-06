@@ -1,4 +1,7 @@
- 
+// use https://github.com/SteveJustin1963/tec-MINT/blob/main/mint_octave_15.m
+// cut and past it in (REPL)
+
+
 :S 12345 s ! [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52] d ! 0 n ! ;
 :R s 75 * 74 + 32749 / /r s ! s 52 / /r ;
 :H 52 ( R 52 /i - / /r j ! d /i ? t ! d j ? d /i ?! t d j ?! ) ;
